@@ -1,4 +1,4 @@
-package lab_01;
+package lab01;
 
 import java.util.concurrent.atomic.AtomicInteger;
 

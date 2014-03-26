@@ -1,6 +1,4 @@
-package lab_01;
-
-import java.util.concurrent.atomic.AtomicInteger;
+package lab01;
 
 /**
  * Created by Jacek Żyła on 18.03.14.

@@ -1,4 +1,4 @@
-package lab_01;
+package lab01;
 
 /**
  * Created by Jacek Żyła on 18.03.14.

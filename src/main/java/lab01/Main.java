@@ -1,4 +1,6 @@
-package lab_01;
+package lab01;
+
+import java.io.*;
 
 /**
  * Created by Jacek Żyła on 18.03.14.
@@ -6,6 +8,8 @@ package lab_01;
 public class Main {
     private static long startTime;
     private static long endTime;
+    private static int threadNumber;
+    private static Object s = new Object();
 
     public static void main(String[] args) {
 
@@ -22,6 +26,27 @@ public class Main {
         Thread incSynchronizedCounter = new Thread(new Incrementer(synchronizedCounter));
         Thread decSynchronizedCounter = new Thread(new Decrementer(synchronizedCounter));
 
+        PrintWriter writer = null;
+        try {
+            writer = new PrintWriter(
+                        new BufferedWriter(
+                            new FileWriter("output.txt", true)
+                        )
+                    );
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        // JVM version
+        writer.println("JVM version: " + System.getProperty("java.version"));
+
+        // Number of iterations
+        writer.println("Liczba iteracji: " + Parameters.NUMBER_OF_ITERATIONS + "\n");
         /*
             Regular counter without synchronization
          */
@@ -39,7 +64,7 @@ public class Main {
         }
 
         endTime = System.nanoTime();
-        System.out.println("Czas pracy: " + (endTime - startTime) + ", wynik: " + counter.toString());
+        writer.println("COUNTER\nCzas pracy: " + (endTime - startTime) + " ns, wynik: " + counter.toString() + "\n");
 
         /*
             Counter with atomic fields
@@ -57,7 +82,7 @@ public class Main {
         }
 
         endTime = System.nanoTime();
-        System.out.println("Czas pracy: " + (endTime - startTime) + ", wynik: " + atomicCounter.toString());
+        writer.println("ATOMIC COUNTER\nCzas pracy: " + (endTime - startTime) + " ns, wynik: " + atomicCounter.toString() + "\n");
 
         /*
             Counter with synchronized methods
@@ -75,7 +100,31 @@ public class Main {
         }
 
         endTime = System.nanoTime();
-        System.out.println("Czas pracy: " + (endTime - startTime) + ", wynik: " + synchronizedCounter.toString());
+        writer.println("SYNCHRONIZED COUNTER:\nCzas pracy: " + (endTime - startTime) + " ns, wynik: " + synchronizedCounter.toString() + "\n");
+
+        writer.close();
+//        threadNumber = 1;
+//
+//        // Check max number of threads
+//        while (true) {
+//            new Thread () {
+//                @Override
+//                public void run() {
+//                    synchronized (s) {
+//                        System.out.println("Thread " + threadNumber++);
+//                    }
+//                    while(true) {
+//                        try {
+//                            sleep(Long.MAX_VALUE);
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//                    }
+//                }
+//            }.start();
+//
+//        }
 
     }
 }
