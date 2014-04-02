@@ -1,6 +1,7 @@
 package lab03.cw02;
 
-import lab03.cw01.BoundedSemaphore;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Created by Jacek Żyła on 26.03.14.
@@ -11,38 +12,85 @@ public class BlockedBuffer {
     private int[] buffer;
     private int limit;
     private volatile int lastElement = 0;
-    private final BoundedSemaphore producerSem;
-    private final BoundedSemaphore consumerSem;
-    private final BoundedSemaphore binarySemaphore;
+    private ReentrantLock lock;
+    private Condition notFullCondition;
+    private Condition putFirstCondition;
+    private Condition notEmptyCondition;
+    private Condition popFirstCondition;
+
 
     public BlockedBuffer(int limit) {
 
         this.limit = limit;
         this.buffer = new int[limit];
-        this.producerSem = new BoundedSemaphore(limit, limit);
-        this.consumerSem = new BoundedSemaphore(limit, 0);
-        binarySemaphore = new BoundedSemaphore(1, 1);
+        this.lock = new ReentrantLock();
+        this.notFullCondition = lock.newCondition();
+        this.notEmptyCondition = lock.newCondition();
+        this.putFirstCondition = lock.newCondition();
+        this.popFirstCondition = lock.newCondition();
+    }
+
+    public void put (int[] elements) throws InterruptedException {
+
+        lock.lock();
+        try {
+
+            while (lock.hasWaiters(putFirstCondition)) {
+                notFullCondition.await();
+            }
+
+            while (lastElement + elements.length >= limit) {
+                putFirstCondition.await();
+            }
+
+
+            for (int i = 0; i < elements.length; i++) {
+                buffer[lastElement++] = elements[i];
+            }
+
+            notFullCondition.signal();
+            popFirstCondition.signal();
+
+
+        }
+        finally{
+            lock.unlock();
+        }
 
     }
 
-    public void put (int newElement) throws InterruptedException {
+    public int[] pop (int numberOfElements) throws InterruptedException {
 
-        producerSem.acquire();
-        binarySemaphore.acquire();
-        buffer[lastElement++] = newElement;
-        binarySemaphore.release();
-        consumerSem.release();
+        int[] elements;
 
-    }
+        lock.lock();
+        try {
 
-    public int pop () throws InterruptedException {
+            while (lock.hasWaiters(popFirstCondition)) {
+                notEmptyCondition.await();
+            }
 
-        consumerSem.acquire();
-        binarySemaphore.acquire();
-        int element = buffer[--lastElement];
-        binarySemaphore.release();
-        producerSem.release();
-        return element;
+            while (lastElement - numberOfElements < 0) {
+                popFirstCondition.await();
+            }
+
+            elements = new int[numberOfElements];
+            for (int i = 0; i < numberOfElements; i++) {
+                elements[i] = buffer[--lastElement];
+            }
+
+            putFirstCondition.signal();
+            notEmptyCondition.signal();
+
+
+        }
+        finally {
+            lock.unlock();
+        }
+
+        return elements;
+
+
     }
 
 }

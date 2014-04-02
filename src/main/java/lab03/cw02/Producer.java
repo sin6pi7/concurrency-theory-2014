@@ -1,7 +1,5 @@
 package lab03.cw02;
 
-import lab03.cw01.BlockedBuffer;
-
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,7 +11,7 @@ public class Producer implements Runnable {
 
 
     private static final Logger LOGGER = Logger.getLogger(Producer.class.getName());
-    private final lab03.cw01.BlockedBuffer blockedBuffer;
+    private final BlockedBuffer blockedBuffer;
     private static final Random random = new Random();
 
     public Producer(BlockedBuffer blockedBuffer) {
@@ -25,8 +23,10 @@ public class Producer implements Runnable {
         try {
             while (true) {
                 int newElement = random.nextInt(30);
+                int[] elements = new int[1];
+                elements[0] = newElement;
                 LOGGER.log(Level.INFO, "Task started: putting into blockedBuffer " + newElement);
-                blockedBuffer.put(newElement);
+                blockedBuffer.put(elements);
                 LOGGER.log(Level.INFO, "Task ended: PUT done with >>>>>>>>>>>" + newElement);
             }
 
