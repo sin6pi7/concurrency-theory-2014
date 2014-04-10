@@ -1,4 +1,4 @@
-package lab03.cw01;
+package lab03.cw01a;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -10,9 +10,9 @@ public class Consumer implements Runnable {
 
 
     private static final Logger LOGGER = Logger.getLogger(Consumer.class.getName());
-    private final BlockedBuffer classicBlockedBuffer;
+    private final ClassicBlockedBuffer classicBlockedBuffer;
 
-    public Consumer(BlockedBuffer classicBlockedBuffer) {
+    public Consumer(ClassicBlockedBuffer classicBlockedBuffer) {
         this.classicBlockedBuffer = classicBlockedBuffer;
     }
 
@@ -20,7 +20,7 @@ public class Consumer implements Runnable {
     public void run() {
         try {
             while (true) {
-                LOGGER.log(Level.INFO, "Task started: popping from blockedBuffer.");
+                LOGGER.log(Level.INFO, "Task started: popping from classicBlockedBuffer.");
                 int popValue = classicBlockedBuffer.pop();
                 LOGGER.log(Level.INFO, "Task ended: POP done with <<<<<<<<<<<" + popValue);
             }
