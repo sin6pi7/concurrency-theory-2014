@@ -8,3 +8,7 @@ Lab01 - Wątki i synchronizacja w Javie
 Lab02 - Monitory w Javie
 
 Lab03 - Semafory i zamki
+
+Lab04 - Blokowanie drobnoziarniste
+
+Lab05 - Active Object
