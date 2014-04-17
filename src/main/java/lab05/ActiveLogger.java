@@ -9,31 +9,27 @@ import java.util.concurrent.locks.ReentrantLock;
 public class ActiveLogger {
 
     private final Scheduler scheduler;
-    private final ReentrantLock lock;
     private final Logger logger;
     private final LinkedBlockingQueue<MethodRequest> activationQueue;
 
     public ActiveLogger(StringBuilder stringBuilder) {
         this.logger = new Logger(stringBuilder);
-        this.lock = new ReentrantLock();
         this.activationQueue = new LinkedBlockingQueue<MethodRequest>();
-        this.scheduler = new Scheduler(logger, lock, activationQueue);
+        this.scheduler = new Scheduler(logger, activationQueue);
         this.scheduler.start();
     }
 
     public void log(String text) throws InterruptedException {
-        scheduler.enqueue(new LogMethodRequest(text, logger, lock));
+        scheduler.enqueue(new LogMethodRequest(text, logger));
     }
 
     public Future read() throws InterruptedException {
         Future future = new Future<String>();
-        scheduler.enqueue(new ReadMethodRequest(future, logger, lock));
+        scheduler.enqueue(new ReadMethodRequest(future, logger));
         return future;
     }
 
     public void finish() throws InterruptedException {
-        this.lock.lock();
         this.scheduler.finish();
-        this.lock.unlock();
     }
 }

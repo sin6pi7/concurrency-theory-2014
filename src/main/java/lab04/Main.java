@@ -10,39 +10,61 @@ import java.util.concurrent.TimeUnit;
 public class Main {
     public static void main(String[] args) throws InterruptedException {
 
-//        MyLinkedList myLinkedList = new MyLinkedList();
-        MyDumbLinkedList myLinkedList = new MyDumbLinkedList();
+        MyLinkedList myLinkedList = new MyLinkedList();
+//        MyDumbLinkedList myLinkedList = new MyDumbLinkedList();
 
         double startTime;
         double endTime;
         int ITERATIONS = 5000;
-        int[] object = new int[1000];
-        int[] object2 = new int[1000];
 
-        for (int i = 0; i < 1000; i++) {
-            object[i] = Integer.MAX_VALUE;
-            object2[i] = Integer.MAX_VALUE;
+        System.out.println("TESTING PERFORMANCE OF " + myLinkedList.getClass().getCanonicalName());
+
+        // ADD TEST
+        startTime = System.nanoTime();
+        ExecutorService executorService = Executors.newFixedThreadPool(4);
+
+        for (int i = 0; i < 10; i++) {
+            executorService.submit(new AddListRunner(myLinkedList, ITERATIONS));
         }
 
-        System.out.println(object.equals(object2));
-//
-//        startTime = System.nanoTime();
-//
-//        ExecutorService executorService = Executors.newFixedThreadPool(4);
-//
-//        for (int i = 0; i < 10; i++) {
-//            executorService.submit(new TestListRunner(myLinkedList, ITERATIONS, object));
-//        }
-//
-//        executorService.shutdown();
-//
-//        executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
-//
-//        endTime = System.nanoTime();
-//
-//
-//
-//        System.out.println("FINISHED TEST. IT TOOK " + (endTime - startTime)/1000000000 + "s");
+        executorService.shutdown();
+        executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+
+        endTime = System.nanoTime();
+        System.out.println("FINISHED ADD TEST. IT TOOK " + (endTime - startTime)/1000000000 + "s");
+
+        // CONTAINS TEST
+        startTime = System.nanoTime();
+        ExecutorService executorService1 = Executors.newFixedThreadPool(4);
+
+        for (int i = 0; i < 10; i++) {
+            executorService1.submit(new ContainsListRunner(myLinkedList, ITERATIONS));
+        }
+
+        executorService1.shutdown();
+
+        executorService1.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+
+        endTime = System.nanoTime();
+
+        System.out.println("FINISHED CONTAINS TEST. IT TOOK " + (endTime - startTime)/1000000000 + "s");
+
+        // REMOVE TEST
+        startTime = System.nanoTime();
+        ExecutorService executorService2 = Executors.newFixedThreadPool(4);
+
+        for (int i = 0; i < 10; i++) {
+            executorService2.submit(new RemoveListRunner(myLinkedList, ITERATIONS));
+        }
+
+        executorService2.shutdown();
+
+        executorService2.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+
+        endTime = System.nanoTime();
+
+        System.out.println("FINISHED REMOVE TEST. IT TOOK " + (endTime - startTime)/1000000000 + "s");
+
 
     }
 }

@@ -1,9 +1,30 @@
 Testy były przeprowadzone następująco:
-4 wątki dostały 10 zadań, gdzie każde zadanie to dodanie 10000 razy jakiegoś obiektu.
+4 wątki dostały 10 zadań, gdzie każde zadanie wykonanie operacji: add, contains i remvoe po 5000 razy każda.
+
+1. Operacja add.
 
                                 Blokowanie drobnoziarniste      Blokowanie całej listy
 
-Integer(Integer.MAX_VALUE)      30.520293035s                   9.040955546s
+int                             49.800805046s                   10.600765635s
 
-Long                            40.414588128s                   10.735219438s
+duży obiekt                     70.425066454s                   44.493521656s
+
+
+2. Operacja contains.
+
+                                Blokowanie drobnoziarniste      Blokowanie całej listy
+
+int                             6.900234617s                    1.172633765s
+
+duży obiekt                     15.928247844s                   14.318796659s
+
+
+3. Operacja remove.
+
+                                Blokowanie drobnoziarniste      Blokowanie całej listy
+
+int                             0.151943955s                    0.295519288s
+
+duży obiekt                     0.189535631s                    2.995315871s
+
 

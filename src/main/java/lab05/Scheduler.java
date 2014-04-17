@@ -13,12 +13,10 @@ public class Scheduler extends Thread {
 
     private final Logger logger;
     private final LinkedBlockingQueue<MethodRequest> activationQueue;
-    private final Lock lock;
     private volatile Thread blinker;
 
-    public Scheduler(Logger logger, Lock lock, LinkedBlockingQueue<MethodRequest> activationQueue) {
+    public Scheduler(Logger logger, LinkedBlockingQueue<MethodRequest> activationQueue) {
         this.logger = logger;
-        this.lock = lock;
         this.activationQueue = activationQueue;
     }
 

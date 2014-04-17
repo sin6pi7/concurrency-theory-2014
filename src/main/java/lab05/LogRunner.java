@@ -17,6 +17,7 @@ public class LogRunner implements Runnable {
         while (true) {
             try {
                 this.activeLogger.log(String.valueOf(i++));
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

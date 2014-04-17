@@ -21,7 +21,10 @@ public class MyDumbLinkedList implements IMyLinkedList {
         ListNode current = guard;
         boolean result = false;
 
+        // system.out.println("Trying to check " + o);
         lockObject.lock();
+
+        // system.out.println("Checking " + o);
 
         while ((current.next != null) && !result) {
 
@@ -33,6 +36,13 @@ public class MyDumbLinkedList implements IMyLinkedList {
 
         }
 
+        if (result) {
+            // system.out.println("List contains " + o);
+        }
+        else {
+            // system.out.println("List does not conatin " + o);
+        }
+
         lockObject.unlock();
 
         return result;
@@ -42,10 +52,10 @@ public class MyDumbLinkedList implements IMyLinkedList {
 
         ListNode prev = guard;
 
-        System.out.println("Trying to remove " + o);
+        // system.out.println("Trying to remove " + o);
         lockObject.lock();
 
-        System.out.println("Removing " + o);
+        // system.out.println("Removing " + o);
         boolean result;
 
         try {
@@ -66,16 +76,16 @@ public class MyDumbLinkedList implements IMyLinkedList {
 
             if(result == true){
                 prev.next = current.next;
-                System.out.println("Removed " + o);
+                // system.out.println("Removed " + o);
             }
             else {
-                System.out.println("Failed to remove " + o);
+                // system.out.println("Failed to remove " + o);
             }
         } finally {
             lockObject.unlock();
         }
 
-        System.out.println("Removed "+ o);
+        // system.out.println("Removed "+ o);
         return result;
     }
 
@@ -83,10 +93,10 @@ public class MyDumbLinkedList implements IMyLinkedList {
 
         ListNode current = guard;
 
-        System.out.println("Trying to add " + o);
+        // system.out.println("Trying to add " + o);
         lockObject.lock();
 
-        System.out.println("Adding " + o);
+        // system.out.println("Adding " + o);
         try {
             while (current.next != null) {
                 current = current.next;
@@ -97,7 +107,7 @@ public class MyDumbLinkedList implements IMyLinkedList {
             lockObject.unlock();
         }
 
-        System.out.println("Added " + o);
+        // system.out.println("Added " + o);
 
         return true;
     }
@@ -106,28 +116,28 @@ public class MyDumbLinkedList implements IMyLinkedList {
 
         ListNode current = guard;
 
-        System.out.println("Trying to print list");
+        // system.out.println("Trying to print list");
         lockObject.lock();
 
-        System.out.println("Printing list");
+        // system.out.println("Printing list");
 
         try {
             while (current.next != null) {
 
-                System.out.println(current.next);
+                // system.out.println(current.next);
                 current = current.next;
 
             }
 
             if (current == guard) {
-                System.out.println(current);
+                // system.out.println(current);
             }
         }
         finally {
             lockObject.unlock();
         }
 
-        System.out.println("Finished printing list");
+        // system.out.println("Finished printing list");
 
     }
 

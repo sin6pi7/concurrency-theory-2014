@@ -16,6 +16,7 @@ public class ReadRunner implements Runnable {
         while (true) {
             try {
                 System.out.println(this.activeLogger.read().getResource());
+                Thread.sleep(10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

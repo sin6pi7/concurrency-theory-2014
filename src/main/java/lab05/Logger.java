@@ -20,4 +20,5 @@ public class Logger implements ILogger {
     public String read() {
         return this.stringBuilder.toString();
     }
+
 }

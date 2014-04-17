@@ -17,7 +17,10 @@ public class MyLinkedList implements IMyLinkedList{
         ListNode current = guard;
         boolean result = false;
 
+        // System.out.println("Trying to check " + o);
         current.lockObject.lock();
+
+        // System.out.println("Checking " + o);
 
         while ((current.next != null) && !result) {
 
@@ -32,6 +35,13 @@ public class MyLinkedList implements IMyLinkedList{
 
         }
 
+        if (result) {
+            // System.out.println("List contains " + o);
+        }
+        else {
+            // System.out.println("List does not contain " + o);
+        }
+
         current.lockObject.unlock();
 
         return result;
@@ -41,10 +51,10 @@ public class MyLinkedList implements IMyLinkedList{
 
         ListNode prev = guard;
 
-        System.out.println("Trying to remove " + o);
+        // System.out.println("Trying to remove " + o);
         prev.lockObject.lock();
 
-        System.out.println("Removing " + o);
+        // System.out.println("Removing " + o);
 
         ListNode current = prev.next;
         boolean result = false;
@@ -66,11 +76,11 @@ public class MyLinkedList implements IMyLinkedList{
 
         if(result == true){
             prev.next = current.next;
-            System.out.println("Removed " + current.object);
+            // System.out.println("Removed " + current.object);
             current.lockObject.unlock();
         }
         else {
-            System.out.println("Failed to remove " + o);
+            // System.out.println("Failed to remove " + o);
         }
 
         prev.lockObject.unlock();
@@ -82,10 +92,10 @@ public class MyLinkedList implements IMyLinkedList{
 
         ListNode current = guard;
 
-        System.out.println("Trying to add " + o);
+        // System.out.println("Trying to add " + o);
         current.lockObject.lock();
 
-        System.out.println("Adding " + o);
+        // System.out.println("Adding " + o);
 
         while (current.next != null) {
             current.next.lockObject.lock();
@@ -97,7 +107,7 @@ public class MyLinkedList implements IMyLinkedList{
         current.next = newNode;
 
         current.lockObject.unlock();
-        System.out.println("Added " + newNode);
+        // System.out.println("Added " + newNode);
 
         return true;
     }
@@ -106,25 +116,25 @@ public class MyLinkedList implements IMyLinkedList{
 
         ListNode current = guard;
 
-        System.out.println("Trying to print list");
+        // System.out.println("Trying to print list");
         current.lockObject.lock();
 
-        System.out.println("Printing list");
+        // System.out.println("Printing list");
         while (current.next != null) {
 
             current.next.lockObject.lock();
-            System.out.println(current.next);
+            // System.out.println(current.next);
             current.lockObject.unlock();
             current = current.next;
 
         }
 
         if (current == guard) {
-            System.out.println(current);
+            // System.out.println(current);
         }
 
         current.lockObject.unlock();
-        System.out.println("Finished printing list");
+        // System.out.println("Finished printing list");
     }
 
 }
