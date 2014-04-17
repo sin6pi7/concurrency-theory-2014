@@ -5,7 +5,7 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * Created by Jacek Żyła on 10.04.14.
  */
-public class MyDumbLinkedList {
+public class MyDumbLinkedList implements IMyLinkedList {
 
     private ListNode guard;
     private ReentrantLock lockObject;
@@ -42,8 +42,10 @@ public class MyDumbLinkedList {
 
         ListNode prev = guard;
 
+        System.out.println("Trying to remove " + o);
         lockObject.lock();
 
+        System.out.println("Removing " + o);
         boolean result;
 
         try {
@@ -64,11 +66,16 @@ public class MyDumbLinkedList {
 
             if(result == true){
                 prev.next = current.next;
+                System.out.println("Removed " + o);
+            }
+            else {
+                System.out.println("Failed to remove " + o);
             }
         } finally {
             lockObject.unlock();
         }
 
+        System.out.println("Removed "+ o);
         return result;
     }
 
@@ -76,8 +83,10 @@ public class MyDumbLinkedList {
 
         ListNode current = guard;
 
+        System.out.println("Trying to add " + o);
         lockObject.lock();
 
+        System.out.println("Adding " + o);
         try {
             while (current.next != null) {
                 current = current.next;
@@ -88,6 +97,8 @@ public class MyDumbLinkedList {
             lockObject.unlock();
         }
 
+        System.out.println("Added " + o);
+
         return true;
     }
 
@@ -95,7 +106,10 @@ public class MyDumbLinkedList {
 
         ListNode current = guard;
 
+        System.out.println("Trying to print list");
         lockObject.lock();
+
+        System.out.println("Printing list");
 
         try {
             while (current.next != null) {
@@ -112,6 +126,8 @@ public class MyDumbLinkedList {
         finally {
             lockObject.unlock();
         }
+
+        System.out.println("Finished printing list");
 
     }
 

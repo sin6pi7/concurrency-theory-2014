@@ -1,0 +1,9 @@
+Testy były przeprowadzone następująco:
+4 wątki dostały 10 zadań, gdzie każde zadanie to dodanie 10000 razy jakiegoś obiektu.
+
+                                Blokowanie drobnoziarniste      Blokowanie całej listy
+
+Integer(Integer.MAX_VALUE)      30.520293035s                   9.040955546s
+
+Long                            40.414588128s                   10.735219438s
+
