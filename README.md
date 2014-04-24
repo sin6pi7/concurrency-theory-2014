@@ -1,14 +1,14 @@
-TW
+Concurrency theory 2014
 ==
 
-Zadania na laboratoria z teorii współbieżności 2013/2014
+Solutions to exercise of concurrency theory class 2014 (Java language).
 
-Lab01 - Wątki i synchronizacja w Javie
+Lab01 - Threads and synchronization in Java
 
-Lab02 - Monitory w Javie
+Lab02 - Monitors in Java
 
-Lab03 - Semafory i zamki
+Lab03 - Semaphores and locks
 
-Lab04 - Blokowanie drobnoziarniste
+Lab04 - Fine-grained locking
 
 Lab05 - Active Object
