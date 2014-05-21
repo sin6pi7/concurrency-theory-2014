@@ -1,0 +1,179 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node', '/usr/bin/npm', 'install', '-g', 'node-highcharts' ]
+2 info using npm@1.3.6
+3 info using node@v0.10.26
+4 verbose cache add [ 'node-highcharts', null ]
+5 verbose cache add name=undefined spec="node-highcharts" args=["node-highcharts",null]
+6 verbose parsed url { protocol: null,
+6 verbose parsed url   slashes: null,
+6 verbose parsed url   auth: null,
+6 verbose parsed url   host: null,
+6 verbose parsed url   port: null,
+6 verbose parsed url   hostname: null,
+6 verbose parsed url   hash: null,
+6 verbose parsed url   search: null,
+6 verbose parsed url   query: null,
+6 verbose parsed url   pathname: 'node-highcharts',
+6 verbose parsed url   path: 'node-highcharts',
+6 verbose parsed url   href: 'node-highcharts' }
+7 silly lockFile d9c7538f-node-highcharts node-highcharts
+8 verbose lock node-highcharts /home/jacekzyla/.npm/d9c7538f-node-highcharts.lock
+9 silly lockFile d9c7538f-node-highcharts node-highcharts
+10 silly lockFile d9c7538f-node-highcharts node-highcharts
+11 verbose addNamed [ 'node-highcharts', '' ]
+12 verbose addNamed [ null, '*' ]
+13 silly lockFile 118201c5-node-highcharts node-highcharts@
+14 verbose lock node-highcharts@ /home/jacekzyla/.npm/118201c5-node-highcharts.lock
+15 silly addNameRange { name: 'node-highcharts', range: '*', hasData: false }
+16 verbose url raw node-highcharts
+17 verbose url resolving [ 'https://registry.npmjs.org/', './node-highcharts' ]
+18 verbose url resolved https://registry.npmjs.org/node-highcharts
+19 info trying registry request attempt 1 at 23:09:04
+20 http GET https://registry.npmjs.org/node-highcharts
+21 http 200 https://registry.npmjs.org/node-highcharts
+22 silly registry.get cb [ 200,
+22 silly registry.get   { date: 'Wed, 21 May 2014 21:09:05 GMT',
+22 silly registry.get     server: 'CouchDB/1.5.0 (Erlang OTP/R14B04)',
+22 silly registry.get     etag: '"4YPW9AHDSNIH3D00KCHR9KIAK"',
+22 silly registry.get     'content-type': 'application/json',
+22 silly registry.get     via: '1.1 varnish',
+22 silly registry.get     'cache-control': 'max-age=1',
+22 silly registry.get     'content-length': '4522',
+22 silly registry.get     'accept-ranges': 'bytes',
+22 silly registry.get     age: '3605',
+22 silly registry.get     'x-served-by': 'cache-v44-ASH, cache-fra1222-FRA',
+22 silly registry.get     'x-cache': 'MISS, MISS',
+22 silly registry.get     'x-cache-hits': '0, 0',
+22 silly registry.get     'x-timer': 'S1400702887.301428795,VS0,VS42,VE139,VE3657774',
+22 silly registry.get     vary: 'Accept',
+22 silly registry.get     'keep-alive': 'timeout=10, max=50',
+22 silly registry.get     connection: 'Keep-Alive' } ]
+23 silly addNameRange number 2 { name: 'node-highcharts', range: '*', hasData: true }
+24 silly addNameRange versions [ 'node-highcharts', [ '0.0.2' ] ]
+25 verbose addNamed [ 'node-highcharts', '0.0.2' ]
+26 verbose addNamed [ '0.0.2', '0.0.2' ]
+27 silly lockFile 2eae8d31-node-highcharts-0-0-2 node-highcharts@0.0.2
+28 verbose lock node-highcharts@0.0.2 /home/jacekzyla/.npm/2eae8d31-node-highcharts-0-0-2.lock
+29 silly lockFile 2cde6282-charts-node-highcharts-0-0-2-tgz https://registry.npmjs.org/node-highcharts/-/node-highcharts-0.0.2.tgz
+30 verbose lock https://registry.npmjs.org/node-highcharts/-/node-highcharts-0.0.2.tgz /home/jacekzyla/.npm/2cde6282-charts-node-highcharts-0-0-2-tgz.lock
+31 verbose addRemoteTarball [ 'https://registry.npmjs.org/node-highcharts/-/node-highcharts-0.0.2.tgz',
+31 verbose addRemoteTarball   '0115198ee03819077c802923dea0c4a3f32a6c38' ]
+32 info retry fetch attempt 1 at 23:09:05
+33 verbose fetch to= /home/jacekzyla/tmp/npm-15876-Z2842079/1400706545128-0.03491470939479768/tmp.tgz
+34 http GET https://registry.npmjs.org/node-highcharts/-/node-highcharts-0.0.2.tgz
+35 http 200 https://registry.npmjs.org/node-highcharts/-/node-highcharts-0.0.2.tgz
+36 verbose tar unpack /home/jacekzyla/tmp/npm-15876-Z2842079/1400706545128-0.03491470939479768/tmp.tgz
+37 silly lockFile e2d40d55-5128-0-03491470939479768-package tar:///home/jacekzyla/tmp/npm-15876-Z2842079/1400706545128-0.03491470939479768/package
+38 verbose lock tar:///home/jacekzyla/tmp/npm-15876-Z2842079/1400706545128-0.03491470939479768/package /home/jacekzyla/.npm/e2d40d55-5128-0-03491470939479768-package.lock
+39 silly lockFile ce290945-5128-0-03491470939479768-tmp-tgz tar:///home/jacekzyla/tmp/npm-15876-Z2842079/1400706545128-0.03491470939479768/tmp.tgz
+40 verbose lock tar:///home/jacekzyla/tmp/npm-15876-Z2842079/1400706545128-0.03491470939479768/tmp.tgz /home/jacekzyla/.npm/ce290945-5128-0-03491470939479768-tmp-tgz.lock
+41 silly gunzTarPerm modes [ '755', '644' ]
+42 silly gunzTarPerm extractEntry package.json
+43 silly gunzTarPerm modified mode [ 'package.json', 438, 420 ]
+44 silly gunzTarPerm extractEntry README.md
+45 silly gunzTarPerm modified mode [ 'README.md', 438, 420 ]
+46 silly gunzTarPerm extractEntry lib/node-highcharts.js
+47 silly gunzTarPerm modified mode [ 'lib/node-highcharts.js', 438, 420 ]
+48 silly gunzTarPerm extractEntry lib/highcharts/exporting.src.js
+49 silly gunzTarPerm modified mode [ 'lib/highcharts/exporting.src.js', 511, 493 ]
+50 silly gunzTarPerm extractEntry lib/highcharts/highcharts.src.js
+51 silly gunzTarPerm modified mode [ 'lib/highcharts/highcharts.src.js', 511, 493 ]
+52 silly lockFile e2d40d55-5128-0-03491470939479768-package tar:///home/jacekzyla/tmp/npm-15876-Z2842079/1400706545128-0.03491470939479768/package
+53 silly lockFile e2d40d55-5128-0-03491470939479768-package tar:///home/jacekzyla/tmp/npm-15876-Z2842079/1400706545128-0.03491470939479768/package
+54 silly lockFile ce290945-5128-0-03491470939479768-tmp-tgz tar:///home/jacekzyla/tmp/npm-15876-Z2842079/1400706545128-0.03491470939479768/tmp.tgz
+55 silly lockFile ce290945-5128-0-03491470939479768-tmp-tgz tar:///home/jacekzyla/tmp/npm-15876-Z2842079/1400706545128-0.03491470939479768/tmp.tgz
+56 verbose tar pack [ '/home/jacekzyla/.npm/node-highcharts/0.0.2/package.tgz',
+56 verbose tar pack   '/home/jacekzyla/tmp/npm-15876-Z2842079/1400706545128-0.03491470939479768/package' ]
+57 verbose tarball /home/jacekzyla/.npm/node-highcharts/0.0.2/package.tgz
+58 verbose folder /home/jacekzyla/tmp/npm-15876-Z2842079/1400706545128-0.03491470939479768/package
+59 silly lockFile e2d40d55-5128-0-03491470939479768-package tar:///home/jacekzyla/tmp/npm-15876-Z2842079/1400706545128-0.03491470939479768/package
+60 verbose lock tar:///home/jacekzyla/tmp/npm-15876-Z2842079/1400706545128-0.03491470939479768/package /home/jacekzyla/.npm/e2d40d55-5128-0-03491470939479768-package.lock
+61 silly lockFile 8d153bf0-ode-highcharts-0-0-2-package-tgz tar:///home/jacekzyla/.npm/node-highcharts/0.0.2/package.tgz
+62 verbose lock tar:///home/jacekzyla/.npm/node-highcharts/0.0.2/package.tgz /home/jacekzyla/.npm/8d153bf0-ode-highcharts-0-0-2-package-tgz.lock
+63 silly lockFile e2d40d55-5128-0-03491470939479768-package tar:///home/jacekzyla/tmp/npm-15876-Z2842079/1400706545128-0.03491470939479768/package
+64 silly lockFile e2d40d55-5128-0-03491470939479768-package tar:///home/jacekzyla/tmp/npm-15876-Z2842079/1400706545128-0.03491470939479768/package
+65 silly lockFile 8d153bf0-ode-highcharts-0-0-2-package-tgz tar:///home/jacekzyla/.npm/node-highcharts/0.0.2/package.tgz
+66 silly lockFile 8d153bf0-ode-highcharts-0-0-2-package-tgz tar:///home/jacekzyla/.npm/node-highcharts/0.0.2/package.tgz
+67 silly lockFile dcacc4fd-pm-node-highcharts-0-0-2-package /home/jacekzyla/.npm/node-highcharts/0.0.2/package
+68 verbose lock /home/jacekzyla/.npm/node-highcharts/0.0.2/package /home/jacekzyla/.npm/dcacc4fd-pm-node-highcharts-0-0-2-package.lock
+69 silly lockFile dcacc4fd-pm-node-highcharts-0-0-2-package /home/jacekzyla/.npm/node-highcharts/0.0.2/package
+70 silly lockFile dcacc4fd-pm-node-highcharts-0-0-2-package /home/jacekzyla/.npm/node-highcharts/0.0.2/package
+71 verbose tar unpack /home/jacekzyla/.npm/node-highcharts/0.0.2/package.tgz
+72 silly lockFile be961a8e-pm-node-highcharts-0-0-2-package tar:///home/jacekzyla/.npm/node-highcharts/0.0.2/package
+73 verbose lock tar:///home/jacekzyla/.npm/node-highcharts/0.0.2/package /home/jacekzyla/.npm/be961a8e-pm-node-highcharts-0-0-2-package.lock
+74 silly lockFile 8d153bf0-ode-highcharts-0-0-2-package-tgz tar:///home/jacekzyla/.npm/node-highcharts/0.0.2/package.tgz
+75 verbose lock tar:///home/jacekzyla/.npm/node-highcharts/0.0.2/package.tgz /home/jacekzyla/.npm/8d153bf0-ode-highcharts-0-0-2-package-tgz.lock
+76 silly gunzTarPerm modes [ '755', '644' ]
+77 silly gunzTarPerm extractEntry package.json
+78 silly gunzTarPerm extractEntry README.md
+79 silly gunzTarPerm extractEntry lib/node-highcharts.js
+80 silly gunzTarPerm extractEntry lib/highcharts/exporting.src.js
+81 silly gunzTarPerm extractEntry lib/highcharts/highcharts.src.js
+82 silly lockFile be961a8e-pm-node-highcharts-0-0-2-package tar:///home/jacekzyla/.npm/node-highcharts/0.0.2/package
+83 silly lockFile be961a8e-pm-node-highcharts-0-0-2-package tar:///home/jacekzyla/.npm/node-highcharts/0.0.2/package
+84 silly lockFile 8d153bf0-ode-highcharts-0-0-2-package-tgz tar:///home/jacekzyla/.npm/node-highcharts/0.0.2/package.tgz
+85 silly lockFile 8d153bf0-ode-highcharts-0-0-2-package-tgz tar:///home/jacekzyla/.npm/node-highcharts/0.0.2/package.tgz
+86 verbose chmod /home/jacekzyla/.npm/node-highcharts/0.0.2/package.tgz 644
+87 verbose chown /home/jacekzyla/.npm/node-highcharts/0.0.2/package.tgz [ 1000, 1000 ]
+88 silly lockFile 2cde6282-charts-node-highcharts-0-0-2-tgz https://registry.npmjs.org/node-highcharts/-/node-highcharts-0.0.2.tgz
+89 silly lockFile 2cde6282-charts-node-highcharts-0-0-2-tgz https://registry.npmjs.org/node-highcharts/-/node-highcharts-0.0.2.tgz
+90 silly lockFile 2eae8d31-node-highcharts-0-0-2 node-highcharts@0.0.2
+91 silly lockFile 2eae8d31-node-highcharts-0-0-2 node-highcharts@0.0.2
+92 silly lockFile 118201c5-node-highcharts node-highcharts@
+93 silly lockFile 118201c5-node-highcharts node-highcharts@
+94 silly resolved [ { name: 'node-highcharts',
+94 silly resolved     description: 'Node based rendering of highcharts',
+94 silly resolved     version: '0.0.2',
+94 silly resolved     author: { name: 'David Padbury', email: 'david@davidpadbury.com' },
+94 silly resolved     repository:
+94 silly resolved      { type: 'git',
+94 silly resolved        url: 'http://github.com/davidpadbury/node-highcharts.git' },
+94 silly resolved     keywords: [ 'highcharts', 'charts' ],
+94 silly resolved     dependencies: { jsdom: '>= 0.2.0' },
+94 silly resolved     main: './lib/node-highcharts',
+94 silly resolved     engines: { node: '>= 0.4.0' },
+94 silly resolved     readme: '# node-highcharts\n\nAn example library demonstrating how a browser based JavaScript graphing library (Highcharts) can be used from Node.\n\n## Usage\n```` js\nvar fs = require(\'fs\'),\n\thighcharts = require(\'node-highcharts\'),\n\toptions = {\n\t\tchart: {\n\t\t\twidth: 300,\n\t\t\theight: 300,\n\t\t\tdefaultSeriesType: \'bar\'\n\t\t},\n\t\tlegend: {\n\t\t\tenabled: false\n\t\t},\n\t\ttitle: {\n\t\t\ttext: \'Highcharts rendered by Node!\'\n\t\t},\n\t\tseries: [{\n\t\t\tdata: [ 1, 2, 3, 4, 5, 6 ]\n\t\t}]\n\t};\n\nhighcharts.render(options, function(err, data) {\n\tif (err) {\n\t\tconsole.log(\'Error: \' + err);\n\t} else {\n\t\tfs.writeFile(\'chart.png\', data, function() {\n\t\t\tconsole.log(\'Written to chart.png\');\n\t\t});\n\t}\n});\n````\n\n<img src="http://i.imgur.com/eOvgU.png" alt="Bar Chart" />\n\n## Todo\nThere\'s a few bits to do before the library will be ready for use.\n\n1. Cleanup jsdom window instance correctly.\n1. Cache window so we don\'t load jQuery+highcharts for every render.\n1. Use a local jQuery.\n1. Update to latest Highcharts version.\n1. Investigate using [CanVG](http://code.google.com/p/canvg/) and [node-canvas](https://github.com/LearnBoost/node-canvas) to render with no dependencies on the environment.',
+94 silly resolved     readmeFilename: 'README.md',
+94 silly resolved     bugs: { url: 'https://github.com/davidpadbury/node-highcharts/issues' },
+94 silly resolved     _id: 'node-highcharts@0.0.2',
+94 silly resolved     dist: { shasum: 'd6bf46ea754067784ae0c1ff071de29794de3d0c' },
+94 silly resolved     _from: 'node-highcharts@',
+94 silly resolved     _resolved: 'https://registry.npmjs.org/node-highcharts/-/node-highcharts-0.0.2.tgz' } ]
+95 info install node-highcharts@0.0.2 into /usr/lib
+96 info installOne node-highcharts@0.0.2
+97 info /usr/lib/node_modules/node-highcharts unbuild
+98 verbose tar unpack /home/jacekzyla/.npm/node-highcharts/0.0.2/package.tgz
+99 silly lockFile 7f67ec81-lib-node-modules-node-highcharts tar:///usr/lib/node_modules/node-highcharts
+100 verbose lock tar:///usr/lib/node_modules/node-highcharts /home/jacekzyla/.npm/7f67ec81-lib-node-modules-node-highcharts.lock
+101 silly lockFile 8d153bf0-ode-highcharts-0-0-2-package-tgz tar:///home/jacekzyla/.npm/node-highcharts/0.0.2/package.tgz
+102 verbose lock tar:///home/jacekzyla/.npm/node-highcharts/0.0.2/package.tgz /home/jacekzyla/.npm/8d153bf0-ode-highcharts-0-0-2-package-tgz.lock
+103 silly gunzTarPerm modes [ '755', '644' ]
+104 error Error: EACCES, mkdir '/usr/lib/node_modules/node-highcharts'
+104 error  { [Error: EACCES, mkdir '/usr/lib/node_modules/node-highcharts']
+104 error   errno: 3,
+104 error   code: 'EACCES',
+104 error   path: '/usr/lib/node_modules/node-highcharts',
+104 error   fstream_type: 'Directory',
+104 error   fstream_path: '/usr/lib/node_modules/node-highcharts',
+104 error   fstream_class: 'DirWriter',
+104 error   fstream_stack:
+104 error    [ '/usr/lib/node_modules/fstream/lib/dir-writer.js:36:23',
+104 error      '/usr/lib/node_modules/mkdirp/index.js:37:53',
+104 error      'Object.oncomplete (fs.js:107:15)' ] }
+105 error Please try running this command again as root/Administrator.
+106 error System Linux 3.14.2-200.fc20.x86_64
+107 error command "node" "/usr/bin/npm" "install" "-g" "node-highcharts"
+108 error cwd /home/jacekzyla/Repositories/concurrency-theory-2014/lab08
+109 error node -v v0.10.26
+110 error npm -v 1.3.6
+111 error path /usr/lib/node_modules/node-highcharts
+112 error fstream_path /usr/lib/node_modules/node-highcharts
+113 error fstream_type Directory
+114 error fstream_class DirWriter
+115 error code EACCES
+116 error errno 3
+117 error stack Error: EACCES, mkdir '/usr/lib/node_modules/node-highcharts'
+118 error fstream_stack /usr/lib/node_modules/fstream/lib/dir-writer.js:36:23
+118 error fstream_stack /usr/lib/node_modules/mkdirp/index.js:37:53
+118 error fstream_stack Object.oncomplete (fs.js:107:15)
+119 verbose exit [ 3, true ]
