@@ -36,7 +36,7 @@ Fork.prototype.acquire = function(cb) {
             } else {
                 tryAcquire(callback, 2*time);
             }
-        }, 1);
+        }, time);
     };
 
     tryAcquire(cb, 1);
@@ -92,20 +92,21 @@ Philosopher.prototype.startNaive = function(count) {
     });
 }
 
-Philosopher.prototype.startAsym = function(count) {
+Philosopher.prototype.startAsym = function(count, cb) {
     var forks = this.forks;
     var forkLeft = this.forkLeft;
     var forkRight = this.forkRight;
     var id = this.id;
 
     var tasks = [];
-    
+
     if (id % 2 === 0)   {
 
         for (var i = 0; i < count; i++) {
                 tasks.push(
-                    function (callback) {
-                        
+                    function (result, callback) {
+
+                        var startTime = new Date().getTime();
                         forkLeft.acquire(
                             function () {
                                 console.log("Philosopher " + id + " acquired left fork with id " + forks.indexOf(forkLeft));
@@ -113,12 +114,18 @@ Philosopher.prototype.startAsym = function(count) {
                                 forkRight.acquire(
                                     function () {
                                         
+                                        var endTime = new Date().getTime();
                                         console.log("Philosopher " + id + " acquired right fork with id " + forks.indexOf(forkRight));    
+                                        console.log("Philosopher " + id + " acquired both forks with partial time " + (endTime - startTime) + "ms" + " and result " + (result + endTime - startTime) + "ms");          
                                         setTimeout(function () {
                                             forkLeft.release();
                                             forkRight.release();
                                             console.log("Philosopher " + id + " released forks");    
-                                            callback();
+                                            if (callback === undefined) {
+                                                result(null, endTime - startTime);
+                                            } else {
+                                                callback(null, result + endTime - startTime);
+                                            }
                                         }, 100);
                                     }
                                 );
@@ -129,33 +136,43 @@ Philosopher.prototype.startAsym = function(count) {
     } else {
 
         for (var i = 0; i < count; i++) {
-            tasks.push(
-                function (callback) {
+                tasks.push(
+                    function (result, callback) {
 
-                    forkRight.acquire(
-                        function () {
-                            console.log("Philosopher " + id + " acquired right fork with id " + forks.indexOf(forkRight));          
-
-                            forkLeft.acquire(
-                                function () {
-
-                                    console.log("Philosopher " + id + " acquired left fork with id " + forks.indexOf(forkLeft));          
-                                    setTimeout(function () {
-                                        forkLeft.release();
-                                        forkRight.release();
-                                        console.log("Philosopher " + id + " released forks");    
-                                        callback();
-                                    }, 100);
-                                }
-                            );
-                        }
-                );
-            });
-        }
+                        var startTime = new Date().getTime();
+                        forkRight.acquire(
+                            function () {
+                                console.log("Philosopher " + id + " acquired right fork with id " + forks.indexOf(forkRight));
+                                
+                                forkLeft.acquire(
+                                    function () {
+                                        
+                                        var endTime = new Date().getTime();
+                                        console.log("Philosopher " + id + " acquired left fork with id " + forks.indexOf(forkLeft));    
+                                        console.log("Philosopher " + id + " acquired both forks with partial time " + (endTime - startTime) + "ms" + " and result " + (result + endTime - startTime) + "ms");          
+                                        setTimeout(function () {
+                                            forkLeft.release();
+                                            forkRight.release();
+                                            console.log("Philosopher " + id + " released forks");    
+                                            if (callback === undefined) {
+                                                result(null, endTime - startTime);
+                                            } else {
+                                                callback(null, result + endTime - startTime);
+                                            }
+                                        }, 100);
+                                    }
+                                );
+                            }
+                    );
+                });
+            }
     }
 
-    async.waterfall(tasks, function (error, results) {
-        console.log("Philosopher " + id + " finished " + count + " tasks");
+    async.waterfall(tasks, function (error, result) {
+        console.log("Philosopher " + id + " finished " + count + " tasks and waited " + result + "ms");
+        if (cb !== undefined) {
+            cb(null, result);
+        }
     });  
 
     // zaimplementuj rozwiązanie asymetryczne
@@ -181,12 +198,11 @@ Conductor.prototype.acquireForks = function (forkLeft, forkRight, cb) {
     tryAcquire(cb, 1);  
 }
 
-Philosopher.prototype.startConductor = function(conductor, count, callback) {
+Philosopher.prototype.startConductor = function(conductor, count, cb) {
     var forks = this.forks;
     var forkLeft = this.forkLeft;
     var forkRight = this.forkRight;
     var id = this.id;
-    var waitTime = 0;
 
     var tasks = [];    
     for (var i = 0; i < count; i++) {
@@ -196,17 +212,16 @@ Philosopher.prototype.startConductor = function(conductor, count, callback) {
                     conductor.acquireForks(forkLeft, forkRight,
                         function () {
                                     var endTime = new Date().getTime();
-                                    if (callback === undefined) {
-                                        callback = result;
-                                        result = 0;
-                                    }
-                                    result += (endTime - startTime)/1000;
-                                    console.log("Philosopher " + id + " acquired both forks and waited " + (endTime - startTime)/1000 + "s");          
+                                    console.log("Philosopher " + id + " acquired both forks with partial time " + (endTime - startTime)  + "ms");          
                                     setTimeout(function () {
                                         forkLeft.release();
                                         forkRight.release();
                                         console.log("Philosopher " + id + " released forks");    
-                                        callback(null, result);
+                                        if (callback === undefined) {
+                                            result(null, 0);
+                                        } else {
+                                            callback(null, result + endTime - startTime);
+                                        }
                                     }, 100);
                                 }
                             );
@@ -215,9 +230,9 @@ Philosopher.prototype.startConductor = function(conductor, count, callback) {
     }
 
     async.waterfall(tasks, function (error, result) {
-        console.log("Philosopher " + id + " finished " + count + " tasks and waited " + result + "s");
-        if (callback !== undefined) {
-            callback(null, result);
+        console.log("Philosopher " + id + " finished " + count + " tasks and waited " + result + "ms");
+        if (cb !== undefined) {
+            cb(null, result);
         }
     });  
 
@@ -226,41 +241,118 @@ Philosopher.prototype.startConductor = function(conductor, count, callback) {
     // podnoszenia widelców -- jedzenia -- zwalniania widelców
 }
 
-
-var N = 5;
-var forks = [];
-var philosophers = [];
-var conductor = new Conductor();
-
-for (var i = 0; i < N; i++) {
-    forks.push(new Fork());
-}
-
-for (var i = 0; i < N; i++) {
-    philosophers.push(new Philosopher(i, forks));
-}
+// var N = ;
+// var forks = [];
+// var philosophers = [];
+// var conductor = new Conductor();
 
 // for (var i = 0; i < N; i++) {
-//     // philosophers[i].startNaive(10);
-//     // philosophers[i].startAsym(10);
+//     forks.push(new Fork());
+// }
+
+// for (var i = 0; i < N; i++) {
+//     philosophers.push(new Philosopher(i, forks));
+// }    
+
+// for (var i = 0; i < N; i++) {
+//     philosophers[i].startNaive(10);
+//     philosophers[i].startAsym(10);
 //     philosophers[i].startConductor(conductor, 10);
 // }
 
-var results = [];
-var tasks = [];
 
-for (var i = 0; i < N; i++) {
-    tasks.push( 
-        function(i) {
-            return function (callback) {
-                philosophers[i].startConductor(conductor, 10, callback);
-            };
-        }(i));
+function testAsym (N, philosophers, times, cb) {
+    
+    var tasks = [];
+    for (var i = 0; i < N; i++) {
+        tasks.push( 
+            function(i) {
+                return function (callback) {
+                    philosophers[i].startAsym(10, callback);
+                };
+            }(i));
+    }
+
+    async.parallel(tasks, function (error, results) {
+        times.push(results);
+        if (cb !== undefined) {
+            cb();
+        }
+    });
 }
 
-async.parallel(tasks, function (error, results) {
-    console.log("FINISHED");
-    for (var i = 0; i < results.length; i++) {
-        console.log("Philosopher " + i + " waited " + results[i] + "s");
-    };
-})
+function testConductor (N, philosophers, times, conductor, cb) {
+    
+    var tasks = [];
+    for (var i = 0; i < N; i++) {
+        tasks.push( 
+            function(i) {
+                return function (callback) {
+                    philosophers[i].startConductor(conductor, 10, callback);
+                };
+            }(i));
+    }
+
+    async.parallel(tasks, function (error, results) {
+        times.push(results);
+        if (cb !== undefined) {
+            cb();
+        }
+    });
+}
+
+function test(philosophersNumbersArray) {
+
+    var times = [];
+    var tasks = [];
+    
+    for (var i = 0; i < philosophersNumbersArray.length; i++) {
+        
+        var N = philosophersNumbersArray[i];;
+        var forks = [];
+        var philosophers = [];
+        var conductor = new Conductor();
+
+        for (var j = 0; j < N; j++) {
+            forks.push(new Fork());
+        }
+
+        for (var j = 0; j < N; j++) {
+            philosophers.push(new Philosopher(j, forks));
+        }
+
+        tasks.push(
+            function (callback) {
+                    testAsym(N, philosophers, times, function () {
+                        testConductor(N, philosophers, times, conductor, function () {
+                            callback();
+                        });
+                    });
+                }
+        );
+
+        console.log("Pushed task with N", N);
+    }
+
+    async.waterfall(tasks, function (error, result) {
+    
+        console.log("-----------------------FINISHED ALL TESTS-----------------------");
+    
+            for (var i = 0; i < times.length; i+=2) {
+                console.log("TESTS FOR " + times[i].length + " PHILOSOPHERS");
+                                    
+                console.log("testAsym:");
+                for (var j = 0; j < times[i].length; j++) {
+                    console.log("Philosopher " + j + " waited " + times[i][j] + "ms");
+                };
+                
+                console.log("testConductor:");
+                for (var j = 0; j < times[i].length; j++) {
+                    console.log("Philosopher " + j + " waited " + times[i+1][j] + "ms");
+                };
+        };
+
+    });  
+}
+
+test([5, 10, 15]);
